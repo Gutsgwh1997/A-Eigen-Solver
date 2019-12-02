@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2    CMakeFiles/testCurveFitting.dir/CurveFitting.cpp.o  -o testCurveFitting -rdynamic ../backend/libslam_course_backend.a 
