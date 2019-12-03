@@ -140,8 +140,8 @@ private:
     /// PCG 迭代线性求解器
     VecX PCGSolver(const MatXX &A, const VecX &b, int maxIter);
 
-    double currentLambda_;
-    double currentChi_;
+    double currentLambda_;      //阻尼因子
+    double currentChi_;         //当前代价函数的加权和
     double stopThresholdLM_;    // LM 迭代退出阈值条件
     double ni_;                 //控制 Lambda 缩放大小
 
@@ -187,7 +187,7 @@ private:
     HashVertex verticies_marg_;
 
     bool bDebug = false;
-    double t_hessian_cost_ = 0.0;
+    double t_hessian_cost_ = 0.0;    //构造Hessian矩阵用时
     double t_PCGsovle_cost_ = 0.0;
 };
 

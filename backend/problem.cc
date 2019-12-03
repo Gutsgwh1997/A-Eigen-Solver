@@ -74,33 +74,42 @@ bool Problem::Solve(int iterations) {
     TicToc t_solve;
     // 统计优化变量的维数，为构建 H 矩阵做准备
     SetOrdering();
-    // 遍历edge, 构建 H = J^T * J 矩阵
+    // 遍历edge, 构建 H = J^T * J 矩阵以及法方程
     MakeHessian();
-    // LM 初始化
+    // LM 初始化,设定初始的lambda
     ComputeLambdaInitLM();
     // LM 算法迭代求解
     bool stop = false;
     int iter = 0;
     while (!stop && (iter < iterations)) {
-        std::cout << "iter: " << iter << " , chi= " << currentChi_ << " , Lambda= " << currentLambda_
-                  << std::endl;
+        std::cout << "iter: " << iter << " , chi= " << currentChi_ << " , Lambda= " << currentLambda_<< std::endl;
         bool oneStepSuccess = false;
         int false_cnt = 0;
         while (!oneStepSuccess)  // 不断尝试 Lambda, 直到成功迭代一步
         {
-            // setLambda
+            //lambda加到矩阵上 
             AddLambdatoHessianLM();
             // 第四步，解线性方程 H X = B
             SolveLinearSystem();
-            //
+            //lambda从矩阵中减去，玩那?不是在玩，是在试探lambda多大合适
             RemoveLambdaHessianLM();
 
             // 优化退出条件1： delta_x_ 很小则退出
-            if (delta_x_.squaredNorm() <= 1e-6 || false_cnt > 10) {
+            if (delta_x_.squaredNorm() <= 1e-6) {
+                std::cout<<GREEN;
+                std::cout<<"Enough precision!(1e-6)"<<std::endl;
+                std::cout<<RESET;
                 stop = true;
                 break;
             }
-
+            if (false_cnt > 10) {
+                std::cout<<RED;
+                std::cout <<"\n Can't find appropriate step, please resetinitial values of vertices.\n"<< std::endl;
+                std::cout<<RESET;
+                stop = true;
+                break;
+            }
+            
             // 更新状态量 X = X+ delta_x
             UpdateStates();
             // 判断当前步是否可行以及 LM 的 lambda 怎么更新
@@ -126,7 +135,12 @@ bool Problem::Solve(int iterations) {
 
         // 优化退出条件3： currentChi_ 跟第一次的chi2相比，下降了 1e6 倍则退出
         if (sqrt(currentChi_) <= stopThresholdLM_)
+        {
+            std::cout<<GREEN;
+            std::cout<<"Residual has been reduced by 1e6 times "<<std::endl;
+            std::cout<<RESET;
             stop = true;
+        }
     }
     std::cout << "problem solve cost: " << t_solve.toc() << " ms" << std::endl;
     std::cout << "   makeHessian cost: " << t_hessian_cost_ << " ms" << std::endl;
@@ -174,7 +188,7 @@ void Problem::MakeHessian() {
             if (v_i->IsFixed()) continue;              // Hessian 里不需要添加它的信息，也就是它的雅克比为 0
 
             auto jacobian_i = jacobians[i];
-            ulong index_i = v_i->OrderingId();
+            ulong index_i = v_i->OrderingId(); //一个边可有多个顶点,H矩阵是对所有顶点而言的,此变量反映其在H中的位置
             ulong dim_i = v_i->LocalDimension();
 
             MatXX JtW = jacobian_i.transpose() * edge.second->Information();
@@ -187,16 +201,18 @@ void Problem::MakeHessian() {
                 ulong index_j = v_j->OrderingId();
                 ulong dim_j = v_j->LocalDimension();
 
-                assert(v_j->OrderingId() != -1);
-                MatXX hessian = JtW * jacobian_j;
+                assert(v_j->OrderingId() != -1);       //从0开始的．
+                MatXX hessian = JtW * jacobian_j;      //等同于加权的最小二乘.
                 // 所有的信息矩阵叠加起来
                 H.block(index_i, index_j, dim_i, dim_j).noalias() += hessian;
                 if (j != i) {
                     // 对称的下三角
+                    // a=a.transpose()会出现混淆问题https://www.cnblogs.com/defe-learn/p/7456778.html
+                    // 确定不会出现混淆，可以使用noalias()来提高效率
                     H.block(index_j, index_i, dim_j, dim_i).noalias() += hessian.transpose();
                 }
             }
-            b.segment(index_i, dim_i).noalias() -= JtW * edge.second->Residual();
+            b.segment(index_i, dim_i).noalias() -= JtW * edge.second->Residual(); //这里和PPT17页有所出入,这里表示加权的最小二乘，PPT是核函数．
         }
 
     }
@@ -214,12 +230,17 @@ void Problem::MakeHessian() {
 void Problem::SolveLinearSystem() {
 
         delta_x_ = Hessian_.inverse() * b_;
-//        delta_x_ = H.ldlt().solve(b_);
+        //对称正定矩阵的LDLT分解，LM算法由于加上了阻尼系数，可以满足正定的条件．
+        //但是牛顿法的H矩阵是半正定的．
+        //ldlt()分解的速度维数中小时候很块，精度没有QR分解高
+       // delta_x_ = H.ldlt().solve(b_);
 
 }
 
+//更新后的步长deltax加到每一个顶点上
+//需要从ordering_generic_的维度中分离出来属于每个顶点的数据
 void Problem::UpdateStates() {
-    for (auto vertex: verticies_) {
+    for (auto vertex: verticies_) {                      //vertex是一个pair<id ptr<Vertex>>
         ulong idx = vertex.second->OrderingId();
         ulong dim = vertex.second->LocalDimension();
         VecX delta = delta_x_.segment(idx, dim);
@@ -236,27 +257,28 @@ void Problem::RollbackStates() {
         VecX delta = delta_x_.segment(idx, dim);
 
         // 之前的增量加了后使得损失函数增加了，我们应该不要这次迭代结果，所以把之前加上的量减去。
+        // TODO::频繁的加减损失精度，需要解决,方法同上
         vertex.second->Plus(-delta);
     }
 }
 
-/// LM
+/// LM,设定阻尼因子和迭代停止的条件
 void Problem::ComputeLambdaInitLM() {
     ni_ = 2.;
     currentLambda_ = -1.;
     currentChi_ = 0.0;
     // TODO:: robust cost chi2
     for (auto edge: edges_) {
-        currentChi_ += edge.second->Chi2();
+        currentChi_ += edge.second->Chi2();         //所有观测误差(二范数)的加权和
     }
-    if (err_prior_.rows() > 0)
+    if (err_prior_.rows() > 0)                      //未设置err_prior_，其rows()为0
         currentChi_ += err_prior_.norm();
 
     stopThresholdLM_ = 1e-6 * currentChi_;          // 迭代条件为 误差下降 1e-6 倍
 
     double maxDiagonal = 0;
     ulong size = Hessian_.cols();
-    assert(Hessian_.rows() == Hessian_.cols() && "Hessian is not square");
+    assert(Hessian_.rows() == Hessian_.cols() && "Hessian is not square"); //都为false才会出错
     for (ulong i = 0; i < size; ++i) {
         maxDiagonal = std::max(fabs(Hessian_(i, i)), maxDiagonal);
     }
@@ -264,27 +286,42 @@ void Problem::ComputeLambdaInitLM() {
     currentLambda_ = tau * maxDiagonal;
 }
 
+//将阻尼因子反映到J'WJ上，对应PPT15页
 void Problem::AddLambdatoHessianLM() {
-    ulong size = Hessian_.cols();
-    assert(Hessian_.rows() == Hessian_.cols() && "Hessian is not square");
-    for (ulong i = 0; i < size; ++i) {
-        Hessian_(i, i) += currentLambda_;
-    }
+    MatXX I(MatXX::Identity(ordering_generic_,ordering_generic_));
+    Hessian_ += currentLambda_*I;
+
+    // 这个操作没有利用已知信息ordering_generic_,循环比较费时.
+    // ulong size = Hessian_.cols();
+    // assert(Hessian_.rows() == Hessian_.cols() && "Hessian is not square");
+    // for (ulong i = 0; i < size; ++i) {
+    //     Hessian_(i, i) += currentLambda_;
+    // }
 }
 
 void Problem::RemoveLambdaHessianLM() {
-    ulong size = Hessian_.cols();
-    assert(Hessian_.rows() == Hessian_.cols() && "Hessian is not square");
-    // TODO:: 这里不应该减去一个，数值的反复加减容易造成数值精度出问题？而应该保存叠加lambda前的值，在这里直接赋值
-    for (ulong i = 0; i < size; ++i) {
-        Hessian_(i, i) -= currentLambda_;
-    }
+    //TODO:: 加减损失数值精度.
+    MatXX I(MatXX::Identity(ordering_generic_,ordering_generic_));
+    Hessian_ -= currentLambda_*I;
+    // ulong size = Hessian_.cols();
+    // assert(Hessian_.rows() == Hessian_.cols() && "Hessian is not square");
+    // // TODO:: 这里不应该减去一个，数值的反复加减容易造成数值精度出问题？而应该保存叠加lambda前的值，在这里直接赋值
+    // for (ulong i = 0; i < size; ++i) {
+    //     Hessian_(i, i) -= currentLambda_;
+    // }
 }
 
+
+/**
+ * @brief 阻尼因子的更新策略Nielsen策略PPT20页
+ *
+ * @return 若跟新变量后，代价函数下降则返回true，否则返回false.
+ */
 bool Problem::IsGoodStepInLM() {
     double scale = 0;
-    scale = delta_x_.transpose() * (currentLambda_ * delta_x_ + b_);
-    scale += 1e-3;    // make sure it's non-zero :)
+    // PPT17页公式(10)的分母
+    scale = 0.5*delta_x_.transpose() * (currentLambda_ * delta_x_ + b_);
+    scale += 1e-6;    // make sure it's non-zero :)
 
     // recompute residuals after update state
     // 统计所有的残差
@@ -294,12 +331,13 @@ bool Problem::IsGoodStepInLM() {
         tempChi += edge.second->Chi2();
     }
 
-    double rho = (currentChi_ - tempChi) / scale;
-    if (rho > 0 && isfinite(tempChi))   // last step was good, 误差在下降
+    double rho = (currentChi_ - tempChi) / scale;   //对应PPT17页公式(10)
+    if (rho > 0 && isfinite(tempChi))               // last step was good, 误差在下降,isfinite是有限的
     {
         double alpha = 1. - pow((2 * rho - 1), 3);
-        alpha = std::min(alpha, 2. / 3.);
-        double scaleFactor = (std::max)(1. / 3., alpha);
+        // alpha = std::min(alpha, 2. / 3.);
+        // double scaleFactor = (std::max)(1. / 3., alpha);
+        double scaleFactor = std::max(1. / 3., alpha);
         currentLambda_ *= scaleFactor;
         ni_ = 2;
         currentChi_ = tempChi;
