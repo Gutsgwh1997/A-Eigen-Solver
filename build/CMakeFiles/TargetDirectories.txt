@@ -8,3 +8,9 @@
 /media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/app/CMakeFiles/edit_cache.dir
 /media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/app/CMakeFiles/rebuild_cache.dir
 /media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/app/CMakeFiles/testCurveFitting.dir
+/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test/CMakeFiles/edit_cache.dir
+/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test/CMakeFiles/rebuild_cache.dir
+/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test/CMakeFiles/MatDcom.dir
+/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test/CMakeFiles/LeastSquares.dir
+/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test/CMakeFiles/TestEigen.dir
+/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test/CMakeFiles/LeastSquares3.dir

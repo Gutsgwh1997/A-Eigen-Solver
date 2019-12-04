@@ -8,6 +8,7 @@ unsigned long global_vertex_id = 0;
 
 Vertex::Vertex(int num_dimension, int local_dimension) {
     parameters_.resize(num_dimension, 1);
+    //一般情况下num_dimension＝local_dimension相等．取决于如何参数化，例如VINS中有一节
     local_dimension_ = local_dimension > 0 ? local_dimension : num_dimension;
     id_ = global_vertex_id++;
 

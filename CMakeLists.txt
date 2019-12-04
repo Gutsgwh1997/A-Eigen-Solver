@@ -42,8 +42,8 @@ find_package(Eigen REQUIRED)
 include_directories(${EIGEN_INCLUDE_DIR})
 
 # opencv
-find_package(OpenCV REQUIRED)
-include_directories(${OpenCV_INCLUDE_DIRS})
+#find_package(OpenCV REQUIRED)
+#include_directories(${OpenCV_INCLUDE_DIRS})
 
 
 include_directories(${PROJECT_SOURCE_DIR})
@@ -53,6 +53,7 @@ add_subdirectory(utils)
 
 if (BUILD_APPS)
     add_subdirectory(app)
+    add_subdirectory(test)
 endif ()
 
 

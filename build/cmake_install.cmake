@@ -37,6 +37,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/backend/cmake_install.cmake")
   include("/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/utils/cmake_install.cmake")
   include("/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/app/cmake_install.cmake")
+  include("/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test/cmake_install.cmake")
 
 endif()
 

@@ -6,5 +6,5 @@ CXX_FLAGS = -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -
 
 CXX_DEFINES = -DUSE_OPENMP
 
-CXX_INCLUDES = -I/usr/include/eigen3 -I/opt/ros/kinetic/include/opencv-3.3.1-dev -I/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -I"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM" 
+CXX_INCLUDES = -I/usr/include/eigen3 -I"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM" 
 

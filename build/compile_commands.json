@@ -1,22 +1,42 @@
 [
 {
   "directory": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/backend",
-  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I/opt/ros/kinetic/include/opencv-3.3.1-dev -I/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/slam_course_backend.dir/vertex.cc.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/backend/vertex.cc\"",
+  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/slam_course_backend.dir/vertex.cc.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/backend/vertex.cc\"",
   "file": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/backend/vertex.cc"
 },
 {
   "directory": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/backend",
-  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I/opt/ros/kinetic/include/opencv-3.3.1-dev -I/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/slam_course_backend.dir/edge.cc.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/backend/edge.cc\"",
+  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/slam_course_backend.dir/edge.cc.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/backend/edge.cc\"",
   "file": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/backend/edge.cc"
 },
 {
   "directory": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/backend",
-  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I/opt/ros/kinetic/include/opencv-3.3.1-dev -I/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/slam_course_backend.dir/problem.cc.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/backend/problem.cc\"",
+  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/slam_course_backend.dir/problem.cc.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/backend/problem.cc\"",
   "file": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/backend/problem.cc"
 },
 {
   "directory": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/app",
-  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I/opt/ros/kinetic/include/opencv-3.3.1-dev -I/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/testCurveFitting.dir/CurveFitting.cpp.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/app/CurveFitting.cpp\"",
+  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -g -Wall -fopenmp -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/testCurveFitting.dir/CurveFitting.cpp.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/app/CurveFitting.cpp\"",
   "file": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/app/CurveFitting.cpp"
+},
+{
+  "directory": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test",
+  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/MatDcom.dir/MatDecomposition.cpp.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/test/MatDecomposition.cpp\"",
+  "file": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/test/MatDecomposition.cpp"
+},
+{
+  "directory": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test",
+  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/LeastSquares.dir/NoLinearLeastSquares.cpp.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/test/NoLinearLeastSquares.cpp\"",
+  "file": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/test/NoLinearLeastSquares.cpp"
+},
+{
+  "directory": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test",
+  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/TestEigen.dir/TestEigen.cpp.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/test/TestEigen.cpp\"",
+  "file": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/test/TestEigen.cpp"
+},
+{
+  "directory": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/build/test",
+  "command": "/usr/bin/c++   -DUSE_OPENMP -I/usr/include/eigen3 -I\"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM\"  -std=c++11 -std=c++11 -g -Wall -fopenmp -DNDEBUG -Wno-reorder -O2   -o CMakeFiles/LeastSquares3.dir/NoLinearLeastSquares3.cpp.o -c \"/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/test/NoLinearLeastSquares3.cpp\"",
+  "file": "/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/CurveFitting_LM/test/NoLinearLeastSquares3.cpp"
 }
 ]

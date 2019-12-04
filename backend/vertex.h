@@ -66,13 +66,13 @@ class Vertex {
 
    protected:
     VecX parameters_;      // 实际存储的变量值
-    int local_dimension_;  // 局部参数化维度
     unsigned long id_;     // 顶点的id，自动生成
 
     /// ordering id是在problem中排序后的id，用于寻找雅可比对应块
     /// ordering id带有维度信息，例如ordering_id=6则对应Hessian中的第6列
-    /// 从零开始
+    /// 从零开始, 指出hessian矩阵的对应块
     unsigned long ordering_id_ = 0;
+    int local_dimension_;  // 局部参数化维度
 
     bool fixed_ = false;  // 是否固定
 };

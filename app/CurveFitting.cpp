@@ -86,7 +86,7 @@ int main()
 
     std::cout<<"\nTest CurveFitting start..."<<std::endl;
     /// 使用 LM 求解
-    problem.Solve(30);
+    problem.Solve(60);
 
     std::cout << "-------After optimization, we got these parameters :" << std::endl;
     std::cout << vertex->Parameters().transpose() << std::endl;

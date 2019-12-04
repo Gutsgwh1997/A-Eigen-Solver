@@ -136,6 +136,58 @@ testCurveFitting/fast:
 	$(MAKE) -f app/CMakeFiles/testCurveFitting.dir/build.make app/CMakeFiles/testCurveFitting.dir/build
 .PHONY : testCurveFitting/fast
 
+#=============================================================================
+# Target rules for targets named MatDcom
+
+# Build rule for target.
+MatDcom: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MatDcom
+.PHONY : MatDcom
+
+# fast build rule for target.
+MatDcom/fast:
+	$(MAKE) -f test/CMakeFiles/MatDcom.dir/build.make test/CMakeFiles/MatDcom.dir/build
+.PHONY : MatDcom/fast
+
+#=============================================================================
+# Target rules for targets named LeastSquares
+
+# Build rule for target.
+LeastSquares: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 LeastSquares
+.PHONY : LeastSquares
+
+# fast build rule for target.
+LeastSquares/fast:
+	$(MAKE) -f test/CMakeFiles/LeastSquares.dir/build.make test/CMakeFiles/LeastSquares.dir/build
+.PHONY : LeastSquares/fast
+
+#=============================================================================
+# Target rules for targets named TestEigen
+
+# Build rule for target.
+TestEigen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 TestEigen
+.PHONY : TestEigen
+
+# fast build rule for target.
+TestEigen/fast:
+	$(MAKE) -f test/CMakeFiles/TestEigen.dir/build.make test/CMakeFiles/TestEigen.dir/build
+.PHONY : TestEigen/fast
+
+#=============================================================================
+# Target rules for targets named LeastSquares3
+
+# Build rule for target.
+LeastSquares3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 LeastSquares3
+.PHONY : LeastSquares3
+
+# fast build rule for target.
+LeastSquares3/fast:
+	$(MAKE) -f test/CMakeFiles/LeastSquares3.dir/build.make test/CMakeFiles/LeastSquares3.dir/build
+.PHONY : LeastSquares3/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -146,6 +198,10 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... slam_course_backend"
 	@echo "... testCurveFitting"
+	@echo "... MatDcom"
+	@echo "... LeastSquares"
+	@echo "... TestEigen"
+	@echo "... LeastSquares3"
 .PHONY : help
 
 

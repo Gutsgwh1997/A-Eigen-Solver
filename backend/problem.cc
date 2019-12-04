@@ -22,13 +22,14 @@ void Problem::LogoutVectorSize() {
     //           " edges:" << edges_.size();
     std::cout<<
               "1 problem::LogoutVectorSize verticies_:" << verticies_.size() <<
-              " edges:" << edges_.size();
+              " edges:" << edges_.size()<<
+              " Hessian dimension "<< Hessian_.cols()<<std::endl;
 
 }
 
 Problem::Problem(ProblemType problemType) :
         problemType_(problemType) {
-    LogoutVectorSize();
+    //LogoutVectorSize();
     verticies_marg_.clear();
 }
 
@@ -79,6 +80,7 @@ bool Problem::Solve(int iterations) {
     // LM 初始化,设定初始的lambda
     ComputeLambdaInitLM();
     // LM 算法迭代求解
+    LogoutVectorSize();
     bool stop = false;
     int iter = 0;
     while (!stop && (iter < iterations)) {
@@ -95,9 +97,9 @@ bool Problem::Solve(int iterations) {
             RemoveLambdaHessianLM();
 
             // 优化退出条件1： delta_x_ 很小则退出
-            if (delta_x_.squaredNorm() <= 1e-6) {
+            if (delta_x_.squaredNorm() <= 1e-8) {
                 std::cout<<GREEN;
-                std::cout<<"Enough precision!(1e-6)"<<std::endl;
+                std::cout<<"Enough precision! delta_x.norm < (1e-8)"<<std::endl;
                 std::cout<<RESET;
                 stop = true;
                 break;
@@ -134,13 +136,13 @@ bool Problem::Solve(int iterations) {
         iter++;
 
         // 优化退出条件3： currentChi_ 跟第一次的chi2相比，下降了 1e6 倍则退出
-        if (sqrt(currentChi_) <= stopThresholdLM_)
-        {
-            std::cout<<GREEN;
-            std::cout<<"Residual has been reduced by 1e6 times "<<std::endl;
-            std::cout<<RESET;
-            stop = true;
-        }
+        // if (sqrt(currentChi_) <= stopThresholdLM_)
+        // {
+        //     std::cout<<GREEN;
+        //     std::cout<<"Residual has been reduced by 1e6 times "<<std::endl;
+        //     std::cout<<RESET;
+        //     stop = true;
+        // }
     }
     std::cout << "problem solve cost: " << t_solve.toc() << " ms" << std::endl;
     std::cout << "   makeHessian cost: " << t_hessian_cost_ << " ms" << std::endl;
@@ -229,7 +231,8 @@ void Problem::MakeHessian() {
 */
 void Problem::SolveLinearSystem() {
 
-        delta_x_ = Hessian_.inverse() * b_;
+        // delta_x_ = Hessian_.inverse() * b_;
+        delta_x_ = Hessian_.ldlt().solve(b_);
         //对称正定矩阵的LDLT分解，LM算法由于加上了阻尼系数，可以满足正定的条件．
         //但是牛顿法的H矩阵是半正定的．
         //ldlt()分解的速度维数中小时候很块，精度没有QR分解高
@@ -277,6 +280,7 @@ void Problem::ComputeLambdaInitLM() {
     stopThresholdLM_ = 1e-6 * currentChi_;          // 迭代条件为 误差下降 1e-6 倍
 
     double maxDiagonal = 0;
+    //都可以用ordering_generic_的
     ulong size = Hessian_.cols();
     assert(Hessian_.rows() == Hessian_.cols() && "Hessian is not square"); //都为false才会出错
     for (ulong i = 0; i < size; ++i) {

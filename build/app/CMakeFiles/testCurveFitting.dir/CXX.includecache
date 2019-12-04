@@ -31,6 +31,8 @@ map
 -
 memory
 -
+assert.h
+-
 backend/eigen_types.h
 ../backend/backend/eigen_types.h
 backend/edge.h

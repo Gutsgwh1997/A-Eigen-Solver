@@ -36,7 +36,7 @@ public:
      * 设置(添加)一个顶点
      * @param vertex 对应的vertex对象
      */
-    bool AddVertex(std::shared_ptr<Vertex> &vertex) {
+    bool AddVertex(const std::shared_ptr<Vertex> &vertex) {
         //push_back会调用构造和转移构造函数
         //emplace_back不需要触发copy和转移构造函数
         verticies_.emplace_back(vertex);
@@ -119,10 +119,10 @@ protected:
     unsigned long id_;  // edge id
     int ordering_id_;   //edge id in problem,用于寻找雅克比对应块?
     std::vector<std::string> verticies_types_;        // 各顶点类型信息，用于debug
-    std::vector<std::shared_ptr<Vertex>> verticies_;  // 该边对应的顶点,vector.size等于jacobians_的size
+    std::vector<std::shared_ptr<Vertex>> verticies_;  // 该边对应的顶点
     VecX residual_;                 // 残差
     std::vector<MatXX> jacobians_;  // 雅可比，每个雅可比维度是 residual x vertex[i].local_dimension_
-    MatXX information_;             // 信息矩阵, 维度是顶点数量x顶点数量吧?
+    MatXX information_;             // 信息矩阵,维度residual_dimension*residual_~可用于加权最小二乘
     VecX observation_;              // 观测信息
 };
 

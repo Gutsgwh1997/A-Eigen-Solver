@@ -46,7 +46,7 @@ public:
     bool AddVertex(std::shared_ptr<Vertex> vertex);
 
     /**
-     * remove a vertex
+     * remove a vertex,暂未实现
      * @param vertex_to_remove
      */
     bool RemoveVertex(std::shared_ptr<Vertex> vertex);
