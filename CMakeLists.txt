@@ -36,7 +36,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -DNDEBUG -Wno-reorder -O2" CACHE
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 option(BUILD_APPS "Build APPs for slam course" YES)
-option(BUILD_TESTS "Build test for slam course" NO)
+option(BUILD_TESTS "Build test for slam course" YES)
 
 # third party libs
 # eigen
@@ -47,6 +47,9 @@ include_directories(${EIGEN_INCLUDE_DIR})
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+# 寻找G2O
+find_package( G2O REQUIRED )
+include_directories( ${G2O_INCLUDE_DIRS} )
 
 include_directories(${PROJECT_SOURCE_DIR})
 
