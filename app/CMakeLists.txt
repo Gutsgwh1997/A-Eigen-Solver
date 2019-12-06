@@ -3,3 +3,10 @@
 add_executable(testCurveFitting CurveFitting.cpp)
 # add_executable(testCurveFitting DIR_SRCS)
 target_link_libraries(testCurveFitting ${PROJECT_NAME}_backend)
+
+add_executable(LeastSquares NoLinearLeastSquares.cpp)
+target_link_libraries(LeastSquares ${PROJECT_NAME}_backend)
+
+add_executable(LeastSquares3 NoLinearLeastSquares3.cpp)
+target_link_libraries(LeastSquares3 ${PROJECT_NAME}_backend)
+

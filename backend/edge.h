@@ -1,3 +1,10 @@
+/**
+ * @file edge.h
+ * @brief 仿照g2o的g2o::BaseMultiEdge类改写的简洁版本
+ * @author VIO COURSE
+ * @version 1.0
+ * @date 2019-12-06
+ */
 #ifndef MYSLAM_BACKEND_EDGE_H
 #define MYSLAM_BACKEND_EDGE_H
 
@@ -11,21 +18,21 @@ namespace backend {
 class Vertex;
 
 /**
- * 边负责计算残差，残差是 预测-观测，维度在构造函数中定义
- * 代价函数是 残差*信息*残差(某种表示，一般是范数,信息矩阵等价于加权的最小二乘)，是一个数值，由后端求和后最小化
+ * 边负责计算残差，残差一般是预测-观测得到的一个向量，维度在构造函数中定义.
+ * g2o中的一元边连接一个顶点（一个变量），多元边可以连接多个顶点
+ * 代价函数一般是一个数值，由 残差*信息*残差(某种表示，一般是范数,信息矩阵等价于加权的最小二乘)，后端求和后最小化
  */
 class Edge {
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
 
     /**
-     * 构造函数，会自动化配雅可比的空间
+     * 构造函数，会自动分配_residual和jacobian的vector的大小(很重要)，在g2o中需要在父类的构造函数中resize()
      * @param residual_dimension 残差维度
      * @param num_verticies 顶点数量,优化变量的数目
      * @param verticies_types 顶点类型名称，可以不给，不给的话check中不会检查
      */
-    explicit Edge(int residual_dimension, int num_verticies,
-                  const std::vector<std::string> &verticies_types = std::vector<std::string>());
+    explicit Edge(int residual_dimension, int num_verticies, const std::vector<std::string> &verticies_types = std::vector<std::string>());
 
     virtual ~Edge();
 
@@ -120,7 +127,7 @@ protected:
     int ordering_id_;   //edge id in problem,用于寻找雅克比对应块?
     std::vector<std::string> verticies_types_;        // 各顶点类型信息，用于debug
     std::vector<std::shared_ptr<Vertex>> verticies_;  // 该边对应的顶点
-    VecX residual_;                 // 残差
+    VecX residual_;                 // 残差,g2o中用_error表示
     std::vector<MatXX> jacobians_;  // 雅可比，每个雅可比维度是 residual x vertex[i].local_dimension_
     MatXX information_;             // 信息矩阵,维度residual_dimension*residual_~可用于加权最小二乘
     VecX observation_;              // 观测信息
