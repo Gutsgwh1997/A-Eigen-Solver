@@ -42,5 +42,6 @@ make -j8
   
   
 ### 非线性问题
+y = exp(a\*x^2 + b*x + c)
 <center> <img src="/media/gwh/学习资料/研究生课题/VINS/从零开始手写VIO/03.第3节 基于优化的IMU预积分与视觉信息融合/problem.png" width="50%" height="50%" /></center>
 
