@@ -6,6 +6,7 @@
 #include <g2o/solvers/dense/linear_solver_dense.h>
 #include <Eigen/Core>
 #include <cmath>
+#include <random>
 #include <chrono>
 using namespace std; 
 
