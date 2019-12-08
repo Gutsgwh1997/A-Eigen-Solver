@@ -20,6 +20,8 @@
 
 using namespace std;
 
+MatXX tempHessian;
+VecX tempX;
 
 namespace myslam {
 namespace backend {
@@ -256,19 +258,21 @@ void Problem::UpdateStates() {
         VecX delta = delta_x_.segment(idx, dim);
 
         // 所有的参数 x 叠加一个增量  x_{k+1} = x_{k} + delta_x
+        tempX = vertex.second->Parameters();
         vertex.second->Plus(delta);
     }
 }
 
 void Problem::RollbackStates() {
     for (auto vertex: verticies_) {
-        ulong idx = vertex.second->OrderingId();
-        ulong dim = vertex.second->LocalDimension();
-        VecX delta = delta_x_.segment(idx, dim);
+        // ulong idx = vertex.second->OrderingId();
+        // ulong dim = vertex.second->LocalDimension();
+        // VecX delta = delta_x_.segment(idx, dim);
 
-        // 之前的增量加了后使得损失函数增加了，我们应该不要这次迭代结果，所以把之前加上的量减去。
-        // TODO::频繁的加减损失精度，需要解决,方法同上
-        vertex.second->Plus(-delta);
+        // // 之前的增量加了后使得损失函数增加了，我们应该不要这次迭代结果，所以把之前加上的量减去。
+        // // TODO::频繁的加减损失精度，需要解决,方法同上
+        // vertex.second->Plus(-delta);
+        vertex.second->SetParameters(tempX);
     }
 }
 
@@ -300,6 +304,7 @@ void Problem::ComputeLambdaInitLM() {
 //将阻尼因子反映到J'WJ上，对应PPT15页
 void Problem::AddLambdatoHessianLM() {
     MatXX I(MatXX::Identity(ordering_generic_,ordering_generic_));
+    tempHessian = Hessian_;
     Hessian_ += currentLambda_*I;
 
     // 这个操作没有利用已知信息ordering_generic_,循环比较费时.
@@ -312,8 +317,9 @@ void Problem::AddLambdatoHessianLM() {
 
 void Problem::RemoveLambdaHessianLM() {
     //TODO:: 加减损失数值精度.
-    MatXX I(MatXX::Identity(ordering_generic_,ordering_generic_));
-    Hessian_ -= currentLambda_*I;
+    Hessian_ = tempHessian;
+    // MatXX I(MatXX::Identity(ordering_generic_,ordering_generic_));
+    // Hessian_ -= currentLambda_*I;
     // ulong size = Hessian_.cols();
     // assert(Hessian_.rows() == Hessian_.cols() && "Hessian is not square");
     // // TODO:: 这里不应该减去一个，数值的反复加减容易造成数值精度出问题？而应该保存叠加lambda前的值，在这里直接赋值
