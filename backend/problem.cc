@@ -1,3 +1,10 @@
+/**
+ * @file problem.cc
+ * @brief 优化算法的简单实现。
+ * @author gwh
+ * @version 1.0
+ * @date 2019-12-07
+ */
 #include <iostream>
 #include <fstream>
 #include <eigen3/Eigen/Dense>
