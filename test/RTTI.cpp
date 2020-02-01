@@ -28,6 +28,7 @@ class GrandParent : public Parent {
 
 void Pacout(Base* pb) {
     pb->logout();
+    // 用来安全向下转型
     Parent* pp= dynamic_cast<Parent*>(pb);
     // Parent* pp= static_cast<Parent*>(pb);
     if (pp){
