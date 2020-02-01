@@ -43,7 +43,9 @@ public:
     // 计算曲线模型误差
     void computeError() override
     {
-        const CurveFittingVertex* v = static_cast<const CurveFittingVertex*> (_vertices[0]);
+        // 将基类的指针向下强制转换为派生类的指针，为什么不用dynamic_cast??，RTTI只能用于包含虚函数的类层次
+        // const CurveFittingVertex* v = static_cast<const CurveFittingVertex*> (_vertices[0]);
+        const CurveFittingVertex* v = dynamic_cast<const CurveFittingVertex*> (_vertices[0]);
         const Eigen::Vector3d abc = v->estimate();
         //_error是一个Eigen::Matrix<>,需要（a,b）这样写
         _error(0,0) = std::exp( abc(0,0)*_x*_x + abc(1,0)*_x + abc(2,0) )- _measurement;
@@ -52,7 +54,8 @@ public:
     // 自己提供雅克比矩阵,可以不提供，默认数值求导
     void linearizeOplus() override
     {
-        const CurveFittingVertex* v = static_cast<const CurveFittingVertex*> (_vertices[0]);
+        // const CurveFittingVertex* v = static_cast<const CurveFittingVertex*> (_vertices[0]);
+        const CurveFittingVertex* v = dynamic_cast<const CurveFittingVertex*> (_vertices[0]);
         const Eigen::Vector3d abc = v->estimate();
         double exp_y = std::exp( abc(0,0)*_x*_x + abc(1,0)*_x + abc(2,0) );
 
