@@ -1,6 +1,6 @@
 /**
  * @file edge.h
- * @brief 仿照g2o的g2o::BaseMultiEdge类改写的简洁版本
+ * @brief 仿照g2o的g2o::BaseMultiEdge类改写的简洁版本,多边和单边的区别是g2o中多边的Jacobian存入vector
  * @author VIO COURSE
  * @version 1.0
  * @date 2019-12-06
